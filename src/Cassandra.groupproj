@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{A78838ED-8A7E-4AB6-8DA9-018B991BBE8C}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="client\CassandraClient.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="library\Cassandra.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="CassandraClient">
+        <MSBuild Projects="client\CassandraClient.dproj"/>
+    </Target>
+    <Target Name="CassandraClient:Clean">
+        <MSBuild Projects="client\CassandraClient.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CassandraClient:Make">
+        <MSBuild Projects="client\CassandraClient.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Cassandra">
+        <MSBuild Projects="library\Cassandra.dproj"/>
+    </Target>
+    <Target Name="Cassandra:Clean">
+        <MSBuild Projects="library\Cassandra.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Cassandra:Make">
+        <MSBuild Projects="library\Cassandra.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="CassandraClient;Cassandra"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="CassandraClient:Clean;Cassandra:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="CassandraClient:Make;Cassandra:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
